@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigationControllerDelegate {
+open class NavigationCoordinator<VM: ViewModel>: Coordinator<UINavigationController, VM>, UINavigationControllerDelegate {
 	//	References to actual UIViewControllers managed by this Coordinator instance.
 	open var viewControllers: [UIViewController] = []
 
@@ -31,8 +31,8 @@ open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigat
 
 	//	MARK:- Presenting
 
-	public func present(_ vc: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
-		vc.parentCoordinator = self
+    public func present(_ vc: UIViewController, withViewModel vm: ViewModel, animated: Bool = true, completion: (() -> Void)? = nil) {
+		vm.parentCoordinator = self
 		rootViewController.present(vc, animated: animated, completion: completion)
 	}
 

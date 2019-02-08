@@ -83,6 +83,7 @@
 		D0FF0C5A1ECB91CD0023F8B8 /* Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FF0C591ECB91CD0023F8B8 /* Storyboards.swift */; };
 		D0FF0C5C1ECB97D80023F8B8 /* CatalogCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FF0C5B1ECB97D80023F8B8 /* CatalogCoordinator.swift */; };
 		D0FF0C5F1ECBB3430023F8B8 /* Cart-CoordinatingResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FF0C5E1ECBB3430023F8B8 /* Cart-CoordinatingResponder.swift */; };
+		D615177F220DBD38004494FB /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D615177E220DBD38004494FB /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +199,7 @@
 		D0FF0C591ECB91CD0023F8B8 /* Storyboards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storyboards.swift; sourceTree = "<group>"; };
 		D0FF0C5B1ECB97D80023F8B8 /* CatalogCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatalogCoordinator.swift; sourceTree = "<group>"; };
 		D0FF0C5E1ECBB3430023F8B8 /* Cart-CoordinatingResponder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cart-CoordinatingResponder.swift"; sourceTree = "<group>"; };
+		D615177E220DBD38004494FB /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -476,6 +478,7 @@
 		D0A788D221E2571B002F34B2 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				D615177E220DBD38004494FB /* ViewModel.swift */,
 				D0A788D321E2571B002F34B2 /* Coordinating.swift */,
 				D0A788D421E2571B002F34B2 /* NavigationCoordinator.swift */,
 				D0A788D521E2571B002F34B2 /* Coordinator.swift */,
@@ -771,6 +774,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D615177F220DBD38004494FB /* ViewModel.swift in Sources */,
 				D0A788D821E2571B002F34B2 /* NavigationCoordinator.swift in Sources */,
 				D0A788DA21E2571B002F34B2 /* UIKit-CoordinatingExtensions.swift in Sources */,
 				D0A788D721E2571B002F34B2 /* Coordinating.swift in Sources */,

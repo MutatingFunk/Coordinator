@@ -42,8 +42,9 @@ Expose to Coordinator only those behaviors that cause push/pop/present to bubble
 
 
 ///	Main Coordinator instance, where T is UIViewController or any of its subclasses.
-open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
+open class Coordinator<T: UIViewController, VM: ViewModel>: UIResponder, Coordinating {
 	public let rootViewController: T
+    public let viewModel: VM
 
 
 	/// You need to supply UIViewController (or any of its subclasses) that will be loaded as root of the UI hierarchy.
@@ -53,11 +54,9 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	/// - returns: Coordinator instance, fully prepared but started yet.
 	///
 	///	Note: if you override this init, you must call `super`.
-	public init(rootViewController: T?) {
-		guard let rvc = rootViewController else {
-			fatalError("Must supply UIViewController (or any of its subclasses) or override this init and instantiate VC in there.")
-		}
-		self.rootViewController = rvc
+    public init(rootViewController: T, viewModel: VM) {
+		self.rootViewController = rootViewController
+        self.viewModel = viewModel
 		super.init()
 	}
 
@@ -92,7 +91,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///
 	///	Note: if you override this method, you must call `super` and pass the `completion` closure.
 	open func start(with completion: @escaping () -> Void = {}) {
-		rootViewController.parentCoordinator = self
+		viewModel.parentCoordinator = self
 		isStarted = true
 		completion()
 	}
@@ -106,7 +105,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///
 	///	Note: if you override this method, you must call `super` and pass the `completion` closure.
 	open func stop(with completion: @escaping () -> Void = {}) {
-		rootViewController.parentCoordinator = nil
+		viewModel.parentCoordinator = nil
 		completion()
 	}
 
@@ -130,7 +129,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///
 	///	By default, it sets itself as `parentCoordinator` for its `rootViewController`.
 	open func activate() {
-		rootViewController.parentCoordinator = self
+        viewModel.parentCoordinator = self
 	}
 
 
