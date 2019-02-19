@@ -14,12 +14,12 @@ extension UIViewController {
         static var ViewModel = "ViewModel"
     }
     
-    public weak var viewModelResponder: ViewModel? {
+    public var viewModelResponder: ViewModel? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.ViewModel) as? ViewModel
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.ViewModel, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.ViewModel, newValue, .OBJC_ASSOCIATION_RETAIN)
         }
     }
 }
