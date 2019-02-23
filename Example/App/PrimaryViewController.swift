@@ -15,6 +15,10 @@ private let identifier = "Cell"
 class PrimaryViewController: UIViewController {
 	@IBOutlet private var tableView: UITableView!
 	
+	var viewModel: PrimaryViewModelling? {
+		return self.coordinatingResponder(ofType: PrimaryViewModelling.self)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -32,10 +36,10 @@ class PrimaryViewController: UIViewController {
 	
 	@objc
 	func insertNewObject(_ sender: Any) {
-		guard let coordinatingResponder = self.coordinatingResponder else {
+		guard let viewModel = self.viewModel else {
 			return
 		}
-		coordinatingResponder.addObjectAtStart()
+		viewModel.addObjectAtStart()
 		let indexPath = IndexPath(row: 0, section: 0)
 		tableView.insertRows(at: [indexPath], with: .automatic)
 	}
@@ -47,18 +51,18 @@ extension PrimaryViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return coordinatingResponder?.objectCount() ?? 0
+		return viewModel?.objectCount() ?? 0
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
 		
-		cell.textLabel!.text = coordinatingResponder?.title(atIndex: indexPath.row)
+		cell.textLabel!.text = viewModel?.title(atIndex: indexPath.row)
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		coordinatingResponder?.selectItem(atIndex: indexPath.row)
+		viewModel?.selectItem(atIndex: indexPath.row)
 	}
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -66,11 +70,11 @@ extension PrimaryViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-		guard let coordinatingResponder = self.coordinatingResponder else {
+		guard let viewModel = self.viewModel else {
 			return
 		}
 		if editingStyle == .delete {
-			coordinatingResponder.removeObject(atIndex: indexPath.row)
+			viewModel.removeObject(atIndex: indexPath.row)
 			tableView.deleteRows(at: [indexPath], with: .fade)
 		} else if editingStyle == .insert {
 			

@@ -10,10 +10,8 @@ import UIKit
 
 import Coordinator
 
-extension UIResponder {
-	@objc dynamic func showDetail(_ date: Date) {
-		coordinatingResponder?.showDetail(date)
-	}
+protocol ObjectShowing {
+	func showObject(_ date: Date)
 }
 
 class AppCoordinator: UICoordinator<UISplitViewController> {
@@ -36,10 +34,6 @@ class AppCoordinator: UICoordinator<UISplitViewController> {
 		super.start(with: completion)
 	}
 	
-	override func showDetail(_ object: Date) {
-		showSecondary(object: object)
-	}
-	
 	private func showPrimary() {
 		let primaryNav = UINavigationController()
 		rootViewController.viewControllers = [primaryNav]
@@ -56,5 +50,11 @@ class AppCoordinator: UICoordinator<UISplitViewController> {
 		}
 		let secondary = SecondaryCoordinator(rootViewController: secondaryNav, object: object)
 		startChild(coordinator: secondary)
+	}
+}
+
+extension AppCoordinator: ObjectShowing {
+	func showObject(_ object: Date) {
+		showSecondary(object: object)
 	}
 }

@@ -15,6 +15,7 @@
 		1A402E042220A07700B43FD2 /* PrimaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A402E032220A07700B43FD2 /* PrimaryView.xib */; };
 		1A402E062220A08D00B43FD2 /* SecondaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A402E052220A08D00B43FD2 /* SecondaryView.xib */; };
 		1A8A08FD22216999003BDA56 /* UICoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8A08FC22216999003BDA56 /* UICoordinator.swift */; };
+		1A8A08FF2221824E003BDA56 /* PrimaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8A08FE2221824E003BDA56 /* PrimaryViewModel.swift */; };
 		33048BBE21FA6F8A00B93597 /* NavigationCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33048BBD21FA6F8A00B93597 /* NavigationCoordinatorTests.swift */; };
 		D04B76601DE5B6D2009F1B9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04B765F1DE5B6D2009F1B9A /* AppDelegate.swift */; };
 		D04B76671DE5B6D2009F1B9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D04B76661DE5B6D2009F1B9A /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		1A402E032220A07700B43FD2 /* PrimaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrimaryView.xib; sourceTree = "<group>"; };
 		1A402E052220A08D00B43FD2 /* SecondaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondaryView.xib; sourceTree = "<group>"; };
 		1A8A08FC22216999003BDA56 /* UICoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICoordinator.swift; sourceTree = "<group>"; };
+		1A8A08FE2221824E003BDA56 /* PrimaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryViewModel.swift; sourceTree = "<group>"; };
 		33048BBB21FA6F8A00B93597 /* ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		33048BBD21FA6F8A00B93597 /* NavigationCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinatorTests.swift; sourceTree = "<group>"; };
 		33048BBF21FA6F8A00B93597 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				D04B765F1DE5B6D2009F1B9A /* AppDelegate.swift */,
 				1A402DF722209F0C00B43FD2 /* AppCoordinator.swift */,
 				1A402DF922209F0C00B43FD2 /* PrimaryCoordinator.swift */,
+				1A8A08FE2221824E003BDA56 /* PrimaryViewModel.swift */,
 				1A402DF622209F0C00B43FD2 /* PrimaryViewController.swift */,
 				1A402E032220A07700B43FD2 /* PrimaryView.xib */,
 				1A402DF822209F0C00B43FD2 /* SecondaryCoordinator.swift */,
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A8A08FF2221824E003BDA56 /* PrimaryViewModel.swift in Sources */,
 				1A402DFB22209F0C00B43FD2 /* PrimaryViewController.swift in Sources */,
 				1A402DFC22209F0C00B43FD2 /* AppCoordinator.swift in Sources */,
 				D04B76601DE5B6D2009F1B9A /* AppDelegate.swift in Sources */,
