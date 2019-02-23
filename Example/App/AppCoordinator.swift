@@ -16,7 +16,7 @@ extension UIResponder {
 	}
 }
 
-class AppCoordinator: Coordinator<UISplitViewController> {
+class AppCoordinator: UICoordinator<UISplitViewController> {
 	
 	var secondaryCoordinator: SecondaryCoordinator? {
 		// Child coordinators are automatically registered with a string identifier matching the class name.
@@ -24,12 +24,12 @@ class AppCoordinator: Coordinator<UISplitViewController> {
 		return self.childCoordinators["\(SecondaryCoordinator.self)"] as? SecondaryCoordinator
 	}
 	
-	override init(rootViewController: UISplitViewController?) {
+	override init(rootViewController: UISplitViewController) {
 		super.init(rootViewController: rootViewController)
 		showPrimary()
 	}
 	
-	override func start(with completion: @escaping () -> Void = {}) {
+	override func start(with completion: @escaping () -> () = {}) {
 		
 		showSecondary(object: nil)
 		

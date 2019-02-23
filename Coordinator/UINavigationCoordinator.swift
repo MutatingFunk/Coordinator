@@ -1,5 +1,5 @@
 //
-//  NavigationCoordinator.swift
+//  UINavigationCoordinator.swift
 //  Radiant Tap Essentials
 //
 //  Copyright © 2017 Radiant Tap
@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigationControllerDelegate {
+open class UINavigationCoordinator: UICoordinator<UINavigationController>, UINavigationControllerDelegate {
 	//	References to actual UIViewControllers managed by this Coordinator instance.
 	open var viewControllers: [UIViewController] = []
 
@@ -31,12 +31,12 @@ open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigat
 
 	//	MARK:- Presenting
 
-	public func present(_ vc: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+	public func present(_ vc: UIViewController, animated: Bool = true, completion: (() -> ())? = nil) {
 		vc.parentCoordinator = self
 		rootViewController.present(vc, animated: animated, completion: completion)
 	}
 
-	public func dismiss(animated: Bool = true, completion: (() -> Void)? = nil) {
+	public func dismiss(animated: Bool = true, completion: (() -> ())? = nil) {
 		rootViewController.dismiss(animated: animated, completion: completion)
 	}
 
@@ -84,14 +84,14 @@ open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigat
 
 	//	MARK:- Coordinator lifecycle
 
-	open override func start(with completion: @escaping () -> Void) {
+	open override func start(with completion: @escaping () -> () = {}) {
 		//	assign itself as UINavigationControllerDelegate
 		rootViewController.delegate = self
 		//	must call this
 		super.start(with: completion)
 	}
 
-	open override func stop(with completion: @escaping () -> Void) {
+	open override func stop(with completion: @escaping () -> () = {}) {
 		//	relinquish being delegate for UINC
 		rootViewController.delegate = nil
 
@@ -116,7 +116,7 @@ open class NavigationCoordinator: Coordinator<UINavigationController>, UINavigat
 	}
 }
 
-private extension NavigationCoordinator {
+private extension UINavigationCoordinator {
 	func didShowController(_ viewController: UIViewController) {
 		//	Note: various sanity checks are done below, explained in comments.
 		//	You would want to add some log calls for each one

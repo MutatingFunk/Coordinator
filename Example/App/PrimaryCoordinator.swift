@@ -29,10 +29,10 @@ extension UIResponder {
 	}
 }
 
-class PrimaryCoordinator: NavigationCoordinator {
+class PrimaryCoordinator: UINavigationCoordinator {
 	var objects: [Date] = []
 	
-	override func start(with completion: @escaping () -> Void = {}) {
+	override func start(with completion: @escaping () -> () = {}) {
 		objects = []
 		
 		let vc = PrimaryViewController()

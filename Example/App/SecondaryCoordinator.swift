@@ -10,19 +10,19 @@ import UIKit
 
 import Coordinator
 
-class SecondaryCoordinator: NavigationCoordinator {
+class SecondaryCoordinator: UINavigationCoordinator {
 	let object: Date?
 	
 	var secondaryViewController: SecondaryViewController? {
 		return rootViewController.viewControllers.first as? SecondaryViewController
 	}
 	
-	init(rootViewController: UINavigationController?, object: Date?) {
+	init(rootViewController: UINavigationController, object: Date?) {
 		self.object = object
 		super.init(rootViewController: rootViewController)
 	}
 	
-	override func start(with completion: @escaping () -> Void = {}) {
+	override func start(with completion: @escaping () -> () = {}) {
 		let vc = SecondaryViewController(detailText: self.object?.description)
 		vc.title = "Secondary"
 		root(vc)

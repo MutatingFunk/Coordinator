@@ -6,7 +6,7 @@
 //  MIT License · http://choosealicense.com/licenses/mit/
 //
 
-import UIKit
+import Foundation
 
 
 ///	Simple closure which allows you to wrap any coordinatingResponder method and
@@ -14,7 +14,7 @@ import UIKit
 ///
 ///	You need to do this in case method needs a dependency that may not be available
 ///	at that particular moment. So save it until dependencies are updated.
-public typealias CoordinatingQueuedMessage = () -> Void
+public typealias CoordinatingQueuedMessage = () -> ()
 
 
 /*
@@ -41,23 +41,8 @@ Expose to Coordinator only those behaviors that cause push/pop/present to bubble
 */
 
 
-///	Main Coordinator instance, where T is UIViewController or any of its subclasses.
-open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
-	public let rootViewController: T
-
-
-	/// You need to supply UIViewController (or any of its subclasses) that will be loaded as root of the UI hierarchy.
-	///	Usually one of container controllers (UINavigationController, UITabBarController etc).
-	///
-	/// - parameter rootViewController: UIViewController at the top of the hierarchy.
-	/// - returns: Coordinator instance, fully prepared but started yet.
-	///
-	///	Note: if you override this init, you must call `super`.
-	public init(rootViewController: T?) {
-		guard let rvc = rootViewController else {
-			fatalError("Must supply UIViewController (or any of its subclasses) or override this init and instantiate VC in there.")
-		}
-		self.rootViewController = rvc
+open class Coordinator: UIResponder, Coordinating {
+	override public init() {
 		super.init()
 	}
 
@@ -68,7 +53,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 
 
 	///	Next coordinatingResponder for any Coordinator instance is its parent Coordinator.
-	open override var coordinatingResponder: UIResponder? {
+	override open var coordinatingResponder: UIResponder? {
 		return parent as? UIResponder
 	}
 
@@ -91,8 +76,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///	- Parameter completion: An optional `Callback` executed at the end.
 	///
 	///	Note: if you override this method, you must call `super` and pass the `completion` closure.
-	open func start(with completion: @escaping () -> Void = {}) {
-		rootViewController.parentCoordinator = self
+	open func start(with completion: @escaping () -> () = {}) {
 		isStarted = true
 		completion()
 	}
@@ -105,8 +89,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///	- Parameter completion: Closure to execute at the end.
 	///
 	///	Note: if you override this method, you must call `super` and pass the `completion` closure.
-	open func stop(with completion: @escaping () -> Void = {}) {
-		rootViewController.parentCoordinator = nil
+	open func stop(with completion: @escaping () -> () = {}) {
 		completion()
 	}
 
@@ -115,7 +98,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///	(See also comments for this method in the Coordinating protocol)
 	///
 	///	Note: if you override this method, you should call `super` and pass the `completion` closure.
-	open func coordinatorDidFinish(_ coordinator: Coordinating, completion: @escaping () -> Void = {}) {
+	open func coordinatorDidFinish(_ coordinator: Coordinating, completion: @escaping () -> () = {}) {
 		stopChild(coordinator: coordinator, completion: completion)
 	}
 
@@ -129,9 +112,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	///	Note: if you override this method, you should call `super`
 	///
 	///	By default, it sets itself as `parentCoordinator` for its `rootViewController`.
-	open func activate() {
-		rootViewController.parentCoordinator = self
-	}
+	open func activate() {}
 
 
 
@@ -150,7 +131,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	- Parameter coordinator: The coordinator implementation to start.
 	- Parameter completion: An optional `Callback` passed to the coordinator's `start()` method.
 	*/
-	public func startChild(coordinator: Coordinating, completion: @escaping () -> Void = {}) {
+	public func startChild(coordinator: Coordinating, completion: @escaping () -> () = {}) {
 		childCoordinators[coordinator.identifier] = coordinator
 		coordinator.parent = self
 		coordinator.start(with: completion)
@@ -163,7 +144,7 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 	- Parameter coordinator: The coordinator implementation to stop.
 	- Parameter completion: An optional `Callback` passed to the coordinator's `stop()` method.
 	*/
-	public func stopChild(coordinator: Coordinating, completion: @escaping () -> Void = {}) {
+	public func stopChild(coordinator: Coordinating, completion: @escaping () -> () = {}) {
 		coordinator.parent = nil
 		coordinator.stop {
 			[unowned self] in
@@ -195,4 +176,3 @@ open class Coordinator<T: UIViewController>: UIResponder, Coordinating {
 		arr.forEach { $0() }
 	}
 }
-
