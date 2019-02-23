@@ -24,13 +24,13 @@ class AppCoordinator: UICoordinator<UISplitViewController> {
 		return self.childCoordinators["\(SecondaryCoordinator.self)"] as? SecondaryCoordinator
 	}
 	
-	override init(rootViewController: UISplitViewController) {
-		super.init(rootViewController: rootViewController)
-		showPrimary()
+	init() {
+		let vc = UISplitViewController()
+		super.init(rootViewController: vc)
 	}
 	
 	override func start(with completion: @escaping () -> () = {}) {
-		
+		showPrimary()
 		showSecondary(object: nil)
 		
 		super.start(with: completion)

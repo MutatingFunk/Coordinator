@@ -14,24 +14,19 @@ import Coordinator
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
-	var appCoordinator: AppCoordinator = {
-		let vc = UISplitViewController()
-		let c = AppCoordinator(rootViewController: vc)
-		return c
-	}()
+	let appCoordinator = AppCoordinator()
 
 	func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
 		window = UIWindow(frame: UIScreen.main.bounds)
-
-		window?.rootViewController = appCoordinator.rootViewController
 
 		return true
 	}
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-		window?.makeKeyAndVisible()
 		appCoordinator.start()
+		window?.rootViewController = appCoordinator.rootViewController
+		window?.makeKeyAndVisible()
 
 		return true
 	}
