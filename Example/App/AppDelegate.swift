@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 import Coordinator
 
 @UIApplicationMain
@@ -14,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 
 	var appCoordinator: AppCoordinator = {
-		let vc = UINavigationController.initial(fromStoryboardNamed: UIStoryboard.Name.app)
+		let vc = UISplitViewController()
 		let c = AppCoordinator(rootViewController: vc)
 		return c
 	}()
