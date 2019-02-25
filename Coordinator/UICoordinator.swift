@@ -58,19 +58,4 @@ open class UICoordinator<T: UIViewController>: Coordinator {
 		super.stop(with: completion)
 	}
 	
-	///	Coordinator can be in memory, but it‘s not currently displaying anything.
-	///	For example, parentCoordinator started some other Coordinator which then took over root VC to display its VCs,
-	///	but did not stop this one.
-	///
-	///	Parent Coordinator can then re-activate this one, in which case it should take-over the
-	///	the ownership of the root VC.
-	///
-	///	Note: if you override this method, you should call `super`
-	///
-	///	By default, it sets itself as `parentCoordinator` for its `rootViewController`.
-	override open func activate() {
-		rootViewController.parentCoordinator = self
-		super.activate()
-	}
-	
 }

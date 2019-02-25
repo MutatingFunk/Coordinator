@@ -90,29 +90,12 @@ open class Coordinator: UIResponder, Coordinating {
 	///
 	///	Note: if you override this method, you must call `super` and pass the `completion` closure.
 	open func stop(with completion: @escaping () -> () = {}) {
-		completion()
+		if let parent = self.parent {
+			parent.stopChild(coordinator: self, completion: completion)
+		} else {
+			completion()
+		}
 	}
-
-	///	By default, calls `stopChild` on the given Coordinator, passing in the `completion` block.
-	///
-	///	(See also comments for this method in the Coordinating protocol)
-	///
-	///	Note: if you override this method, you should call `super` and pass the `completion` closure.
-	open func coordinatorDidFinish(_ coordinator: Coordinating, completion: @escaping () -> () = {}) {
-		stopChild(coordinator: coordinator, completion: completion)
-	}
-
-	///	Coordinator can be in memory, but it‘s not currently displaying anything.
-	///	For example, parentCoordinator started some other Coordinator which then took over root VC to display its VCs,
-	///	but did not stop this one.
-	///
-	///	Parent Coordinator can then re-activate this one, in which case it should take-over the
-	///	the ownership of the root VC.
-	///
-	///	Note: if you override this method, you should call `super`
-	///
-	///	By default, it sets itself as `parentCoordinator` for its `rootViewController`.
-	open func activate() {}
 
 
 

@@ -36,27 +36,12 @@ public protocol Coordinating: class {
 	///	I.e. list of shown `UIViewController`s.
 	func stop(with completion: @escaping () -> ())
 
-	///	Essentially, this means that Coordinator requests from its parent to stop it.
-	///
-	///	Useful in cases where a particular Coordinator instance know that at particular
-	///	moment none of its UIVCs will be visible or useful anymore.
-	///	This is a chance for parentCoordinator to nicely transitions to some other Coordinator.
-	func coordinatorDidFinish(_ coordinator: Coordinating, completion: @escaping () -> ())
-
 	///	Adds the supplied coordinator into its `childCoordinators` dictionary and calls its `start` method
 	func startChild(coordinator: Coordinating, completion: @escaping () -> ())
 
 	///	Calls `stop` on the supplied coordinator and removes it from its `childCoordinators` dictionary
 	func stopChild(coordinator: Coordinating, completion: @escaping () -> ())
 
-	///	Activate Coordinator which was used before.
-	///
-	///	At the least, this Coordinator should assign itself as `parentCoordinator` of its `rootViewController`,
-	///	ready to start displaying its content View Controllers. This is required due to the possibility that
-	///	multiple Coordinator can share one UIViewController as their root VC.
-	///
-	///	See NavigationCoordinator for one possible usage.
-	func activate()
 }
 
 

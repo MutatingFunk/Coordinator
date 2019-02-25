@@ -87,6 +87,8 @@ open class UINavigationCoordinator: UICoordinator<UINavigationController>, UINav
 	open override func start(with completion: @escaping () -> () = {}) {
 		//	assign itself as UINavigationControllerDelegate
 		rootViewController.delegate = self
+		//	assign own content View Controllers
+		rootViewController.viewControllers = viewControllers
 		//	must call this
 		super.start(with: completion)
 	}
@@ -104,15 +106,6 @@ open class UINavigationCoordinator: UICoordinator<UINavigationController>, UINav
 		viewControllers.removeAll()
 		//	must call this
 		super.stop(with: completion)
-	}
-
-	open override func activate() {
-		//	take back ownership over root (UINavigationController)
-		super.activate()
-		//	assign itself again as `UINavigationControllerDelegate`
-		rootViewController.delegate = self
-		//	re-assign own content View Controllers
-		rootViewController.viewControllers = viewControllers
 	}
 }
 
@@ -157,7 +150,7 @@ private extension UINavigationCoordinator {
 		//	is there any controller left shown in this Coordinator?
 		if viewControllers.count == 0 {
 			//	inform the parent Coordinator that this child Coordinator has no more VCs
-			parent?.coordinatorDidFinish(self, completion: {})
+			parent?.stopChild(coordinator: self, completion: {})
 		}
 	}
 }
