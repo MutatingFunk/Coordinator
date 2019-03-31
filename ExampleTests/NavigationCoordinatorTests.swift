@@ -9,7 +9,7 @@
 import XCTest
 import Coordinator
 
-class ReportingNavigationCoordinator: NavigationCoordinator {
+class ReportingNavigationCoordinator: UINavigationCoordinator {
 
     var navigationChangeExpectation: XCTestExpectation?
 

@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/radianttap/Coordinator.git" }
   s.source_files = 'Coordinator/*.swift'
   s.frameworks   = 'UIKit'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 end
